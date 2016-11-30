@@ -10,9 +10,9 @@ defmodule Cards do
     values = ["Ace", "Two", "Three", "Four", "Five"]
     suits = ["Hearts", "Spades", "Diamonds", "Clubs"]
 
-    for suit <- suits do
-      # for every suit in suits, execute this doblock
-      suit
+    for suit <- suits, value <- values do
+      # for every suit in suits, execute this doblock with each value in values
+      "#{value} of #{suit}"
       #for is essentially a mapping function... this will return a new list
     end
     #Data is elixir is immutable... everything returns new data, anything made by create_deck/0 will NEVER be reassigned. 
@@ -26,5 +26,12 @@ defmodule Cards do
 
   def contains?(deck, card) do
     Enum.member?(deck, card)
+  end
+
+  def deal(deck, hand_size) do
+    Enum.split(deck, hand_size)
+    #this will create a tuple where the first value will be the hand, and the second val will be the remaining deck.
+    #this key value pair, but without the keys... the location of the object (first pos, second pos) will determine
+    #what the values mean
   end
 end
