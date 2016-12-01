@@ -1,10 +1,21 @@
 defmodule Cards do
+  #@moduledoc  section for providing module documentation using ex_doc
+  #create using 'mix docs' in the root directory
+  @moduledoc"""
+    Provides methods for creating and handling for a deck of playing cards
+  """
+
   #new function
   def hello do
     #note the implicit return of the last value
     "hi there!"
   end
 
+  #@doc section used for providing method documentation using ex_doc
+  @doc"""
+    Returns a list of strings representing a deck of playing cards
+  """
+  #notice this is above the method declaration
   def create_deck do
     #notice the complete and total lack of objs... everything is data
     values = ["Ace", "Two", "Three", "Four", "Five"]
@@ -29,6 +40,25 @@ defmodule Cards do
     Enum.member?(deck, card)
   end
 
+  @doc"""
+    Divides a deck into a hand and the remainder of the deck. 
+    The `hand_size` argument indicates how many cards should be in the hand.
+
+    ## Examples
+
+        iex> deck = Cards.create_deck
+        iex> {hand, deck} = Cards.deal(deck, 1)
+        iex> hand
+        ["Ace of Spades"]
+
+  """
+  # notice the backticks (``) around hand_size. This will be pretty-printed like code in the docs.
+  # Also, note the format of '## Examples'
+  #   -Must start with '## Examples'
+  #   -Must have a newline char after '## Examples'
+  #   -Must be indented 3 tabs from the @@doc """
+  #   -Follow with a new line
+  # This pretty-prints code examples.
   def deal(deck, hand_size) do
     Enum.split(deck, hand_size)
     #this will create a tuple where the first value will be the hand, and the second val will be the remaining deck.
