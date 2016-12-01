@@ -44,7 +44,7 @@ defmodule Cards do
       iex> deck = Cards.create_deck
       iex> Cards.contains?(deck, "Ace of Hearts")
       true
-      
+
   """
   def contains?(deck, card) do
     # if function returns a bool, then convention is to name it with 
