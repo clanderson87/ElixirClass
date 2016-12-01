@@ -37,20 +37,34 @@ defmodule Cards do
   end
 
   def save(deck, filename) do
-    #whenever we need to write Erlang code under elixir, we write the :erlang symbol
+    #whenever we need to write Erlang code under elixir, we write the :erlang atom
     #this code is using :erlang's built in term_to_binary function
     #which we're going save using the Elixir File module.
     binary = :erlang.term_to_binary(deck)
     File.write(filename, binary) 
   end
 
+    #def load(filename) do
+    #  {status, binary} = File.read(filename)
+    ## Instructor note: Try to avoid if statements at all possible cost. Try to use
+    #  #case statements like the one below and pattern matching
+    #  case status do
+    #    :ok -> :erlang.binary_to_term binary
+    #    :error -> "that file doesn't exist"
+    #  end
+    # :word is called an atom in Elixir. It is a primitive data type. They're generally used for status codes
+    # or control . They're like strings aimed only at devs, not users.
+  #end
+
   def load(filename) do
-    {status, binary} = File.read(filename)
-    #Instructor note: Try to avoid if statements at all possible cost. Try to use
-    #case statements like the one below and pattern matching
-    case status do
-      :ok -> :erlang.binary_to_term binary
-      :error -> "that file doesn't exist"
+    #alternate (more concise) way of doing this the above!!
+    case File.read(filename) do
+      {:ok, binary} -> :erlang.binary_to_term binary
+      {:error, _reason} -> "That file isn't here"
+      #the _ before a var name (like _reason above) tells elixir that, due to pattrn matching
+      #we know there will be a variable in there, but we really don't care what it is. The _ will
+      #kill compiler warnings
     end
   end
+
 end
