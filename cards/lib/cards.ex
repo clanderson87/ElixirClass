@@ -35,6 +35,17 @@ defmodule Cards do
     #Docs: http://elixir-lang.org/docs/stable/elixir/Enum.html#shuffle/1 check out rest of Enum module as well.
   end
 
+
+  @doc"""
+    Determines if a deck contains a given card
+
+    ## Examples
+
+      iex> deck = Cards.create_deck
+      iex> Cards.contains?(deck, "Ace of Hearts")
+      true
+      
+  """
   def contains?(deck, card) do
     # if function returns a bool, then convention is to name it with 
     Enum.member?(deck, card)
@@ -49,16 +60,19 @@ defmodule Cards do
         iex> deck = Cards.create_deck
         iex> {hand, deck} = Cards.deal(deck, 1)
         iex> hand
-        ["Ace of Spades"]
+        ["Ace of Hearts"]
 
   """
   # notice the backticks (``) around hand_size. This will be pretty-printed like code in the docs.
   # Also, note the format of '## Examples'
   #   -Must start with '## Examples'
   #   -Must have a newline char after '## Examples'
+  #   -CODE LINES must be prefaced with 'iex> '
+  #   -RESULT VALUE shouldn't be prefaced with 'iex> '
   #   -Must be indented 3 tabs from the @@doc """
   #   -Follow with a new line
   # This pretty-prints code examples.
+  # ALSO, HOLY SHIT: 'mix test' will test this example if all of the above rules are followed. WTFLOLBBQ.
   def deal(deck, hand_size) do
     Enum.split(deck, hand_size)
     #this will create a tuple where the first value will be the hand, and the second val will be the remaining deck.
@@ -110,5 +124,4 @@ defmodule Cards do
     # NB: Pipe operator wants us to chain operations that have consistent first arguments. 
     # Note how Cards.shuffle and Cards.deal use the deck as the first arg. Thats what pipe op wants. 
   end
-
 end
