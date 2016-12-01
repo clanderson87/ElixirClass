@@ -67,4 +67,18 @@ defmodule Cards do
     end
   end
 
+  def create_hand(hand_size) do
+    #We're about to see why pipes are awesome. Instead of: 
+      #deck = Cards.create_deck
+      #deck = Cards.shuffle(deck)
+      #hand = Cards.deal(deck, hand_size)
+    #We're gonna do:
+    Cards.create_deck
+    |> Cards.shuffle
+    |> Cards.deal(hand_size)
+    # Think of this like chaining functions in jQuery.
+    # NB: Pipe operator wants us to chain operations that have consistent first arguments. 
+    # Note how Cards.shuffle and Cards.deal use the deck as the first arg. Thats what pipe op wants. 
+  end
+
 end
