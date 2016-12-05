@@ -4,7 +4,18 @@ defmodule Identicon do
     |> hash_input
     |> pick_color
     |> build grid
+    |> filter_odd_squares
     #due to piping, every method in this flow must return the same datatype - in this case, a %Identicon.Image{}
+  end
+
+  def filter_odd_squares(%Identicon.Image{grid: grid} = image) do
+    gridVal = Enum.filter grid, fn({code, _index}) -> 
+      rem(code, 2) == 0 
+      #rem(x,y) calculates the remainder of x/y.
+      # == 0 will return true, which will cause Enum.filter to keep it in the grid. Else it is discarded  
+    end
+
+    %Identicon.Image{image | grid: gridVal}
   end
 
   def build_grid(%Identicon.Image{hex: hex} = image) do
