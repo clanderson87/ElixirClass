@@ -6,9 +6,27 @@ defmodule Identicon do
     |> build grid
     |> filter_odd_squares
     |> build_pixel_map
+    |> draw_image
+    |> save_image(input)
     #due to piping, every method in this flow must return the same datatype - in this case, a %Identicon.Image{}
   end
+
+  def save_image(image, input) do
+    File.write("#{input}.png", image)
+  end
  
+  def draw_image(%Identicon.Image{color: color, pixel_map: pixel_map}) do
+    # the lack of "= image" tells Elixir that we're done with every non-specified property of the image struct we passed in.
+    image = :egd.create(250, 250)
+    fill = :egd.color(color)
+
+    Enum.each pixel_map fn({start, stop}) ->
+      :egd.filledRectangle(image, start, stop, fill)
+    end
+
+    :egd.render(image)
+  end
+
   def build_pixel_map(%Identicon.Image{grid: grid} = image) do
     pixel_map = Enum.map grid, fn({_code, index}) ->
       horizontal = rem(index, 5) * 50
