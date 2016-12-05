@@ -5,7 +5,23 @@ defmodule Identicon do
     |> pick_color
     |> build grid
     |> filter_odd_squares
+    |> build_pixel_map
     #due to piping, every method in this flow must return the same datatype - in this case, a %Identicon.Image{}
+  end
+ 
+  def build_pixel_map(%Identicon.Image{grid: grid} = image) do
+    pixel_map = Enum.map grid, fn({_code, index}) ->
+      horizontal = rem(index, 5) * 50
+      vertical = div(index, 5) * 50
+      # this creates the point to start the square from. This is the top left corner.
+
+      top_left = {horizontal, vertical}
+      bottom_right = {horizontal + 50, vertical + 50}
+
+      {top_left, bottom_right}
+    end
+
+    %Identicon.Image{image | pixel_map}
   end
 
   def filter_odd_squares(%Identicon.Image{grid: grid} = image) do
