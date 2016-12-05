@@ -9,7 +9,8 @@ defmodule Identicon do
   def build_grid(%Identicon.Image{hex: hex} = image) do
     hex
     |> Enum.chunk(3)
-    |> 
+    |> Enum.map(&mirror_row/1)
+    #the &mirror_row/1 is how we pass function refs in Elixir. &function_name/arity#
   end
 
   def mirror_row(row) do
