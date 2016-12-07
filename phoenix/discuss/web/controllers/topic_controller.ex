@@ -15,4 +15,10 @@ defmodule Discuss.TopicController do
     changeset = Topic.changeset(struct, params)
     render conn, "new.html", changeset: changeset
   end
+
+  def create(conn, params) do
+    IO.inspect(params)
+    # When using the params obj, must use pattern matching to access values within since keys are strings
+    %{"topic" => topic} = params # can also put this inplace of params in the method definition
+  end
 end

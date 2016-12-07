@@ -18,6 +18,7 @@ defmodule Discuss.Router do
 
     get "/", PageController, :index
     get "/topics/new", TopicController, :new
+    post "/topics", TopicController, :create
     #this line is broken up into 4 parts.
     #   whenever someone does a 'get' HTTP request
     #   to the "/" route
