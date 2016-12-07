@@ -2,6 +2,7 @@
 <!-- <%= denotes incoming elixir code
   'form_for @changeset' means create a form using this changeset passed into this template from the render call (topic_controller.ex:16)
   'topic_path(@conn, :create)' is to determine what route we want to send the data to. @conn is sent to this template from topic_controller.changeset.render:16. Generally Automatic
+    Also, gives us the appropriate action and method attribute taken from topic_controller and router 
   'fn f ->' labels the rest of the following as a function to be executed with this form as the f argument
  -->
 

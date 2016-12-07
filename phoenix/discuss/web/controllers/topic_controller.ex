@@ -3,7 +3,7 @@ defmodule Discuss.TopicController do
   alias Discuss.Topic
   # like class inheritance. Imports a ton of stuff from Discuss.Web.ex/controller
 
-  def new(conn, params) do
+  def new(conn, _params) do
     # IO.puts "++++"
     # IO.inspect conn #The focus of Phoenix. CONN IS AWESOME
     # IO.puts "++++"
