@@ -1,3 +1,16 @@
-<%=form_for @changeset, post_path(@conn, :create), fn f-> %>
+<%= form_for @changeset, topic_path(@conn, :create), fn f-> %>
+<!-- <%= denotes incoming elixir code
+  'form_for @changeset' means create a form using this changeset passed into this template from the render call (topic_controller.ex:16)
+  'topic_path(@conn, :create)' is to determine what route we want to send the data to. @conn is sent to this template from topic_controller.changeset.render:16. Generally Automatic
+  'fn f ->' labels the rest of the following as a function to be executed with this form as the f argument
+ -->
 
+  <div class ="form-group">
+    <%= text_input f, :title, placeholder: "Title", class: "form-control" %>
+      <!--This creates a <input type = "text" placeholder="Title" class="form-control" /> that takes in form 
+      (denoted by f) thats responsible for the :title property -->
+
+    <%= submit "Save Topic", class: "btn btn-primary" %>
+    <!-- this is going to create a <submit class="btn btn-primary">Save Topic</submit>-->
+  </div>
 <% end %>
