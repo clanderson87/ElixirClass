@@ -3,7 +3,8 @@ defmodule Discuss.PageController do
 
   def index(conn, _params) do
     render conn, "index.html"
-    #this says whenever a user calls the :index method,
+    # this says whenever a user calls the :index method,
     # send them back our index.html page from the corresponding template directory 
+    # the names of our controllers, templates and views matters
   end
 end
