@@ -28,13 +28,13 @@ defmodule Discuss.TopicController do
     changeset = Topic.changeset(%Topic{}, topic)
 
     case Repo.insert(changeset) do
-      {:ok, post} -> 
-        IO.inspect(post)
+      {:ok, _topic} -> 
+        #IO.inspect(topic)
         conn
         |> put_flash(:info, "topic created") #shows single use messages to the user, destroyed upon next user action shown. shown in templates/layout/app.html.eex:26-27
         |> redirect(to: topic_path(conn, :index))
       {:error, changeset} -> 
-        IO.inspect(changeset)
+        #IO.inspect(changeset)
         render conn, "new.html", changeset: changeset
     end
   end
@@ -45,5 +45,19 @@ defmodule Discuss.TopicController do
     changeset = Topic.changeset(topic) #using Topic.ex/:changeset function here
 
     render conn, "edit.html", changeset: changeset, topic: topic
+  end
+
+  def update(conn, %{"id" => topic_id, "topic" => topic}) do
+    old_topic = Repo.get(Topic, topic_id)
+    changeset = Topic.changeset(old_topic, topic)
+
+    case Repo.update(changeset) do
+      {:ok, _topic} ->
+        conn
+        |> put_flash(:info, "Topic updated")
+        |> redirect(to: topic_path(conn, :index))
+      {:error, changeset} ->
+        render conn, "edit.html", changeset: changeset, topic: old_topic
+    end
   end
 end
