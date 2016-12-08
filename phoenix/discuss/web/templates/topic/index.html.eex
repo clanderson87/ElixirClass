@@ -1,0 +1,11 @@
+<h2>Topics</h2>
+
+<ul class="collection">
+  <%= for topic <- @topics do %>
+    <li class ="collection-item">
+      <%= topic.title %>
+    </li>
+  <% end %>
+</ul>
+
+<!--<#= the @topics is a prop made availible by the third srgument to topic_controller/:index.render %>-->

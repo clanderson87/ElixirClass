@@ -16,6 +16,11 @@ defmodule Discuss.TopicController do
     render conn, "new.html", changeset: changeset
   end
 
+  def index(conn, _params) do
+    topics = Repo.all(Topic) #note here that were passing in a module - this will return all the data records of this module type
+    render conn, "index.html", topics: topics
+  end
+
   def create(conn, params) do
     IO.inspect(params)
     # When using the params obj, must use pattern matching to access values within since keys are strings
