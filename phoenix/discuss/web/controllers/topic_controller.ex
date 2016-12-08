@@ -40,6 +40,10 @@ defmodule Discuss.TopicController do
   end
 
   def edit(conn, %{"id" => topic_id}) do
-    
+    topic = Repo.get(Topic, topic_id) #Repo module will fo get a Topic out of our Topic Table that has the topic_id.
+      #syntax is Repo.get(Module, prop_to_filter_by)
+    changeset = Topic.changeset(topic) #using Topic.ex/:changeset function here
+
+    render conn, "edit.html", changeset: changeset, topic: topic
   end
 end
