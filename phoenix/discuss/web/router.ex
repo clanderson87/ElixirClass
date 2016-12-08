@@ -24,6 +24,9 @@ defmodule Discuss.Router do
     #   and run the index method
     get "/topics/new", TopicController, :new
     post "/topics", TopicController, :create
+    get "/topis/:id/edit" TopicController :edit
+    # :id is a wildcard matcher. it needs to match the text passed into the 
+    # params map in the corresponding controller method (in this case, :edit)
   end
 
   # Other scopes may use custom stacks.

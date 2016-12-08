@@ -3,6 +3,11 @@ defmodule Discuss.TopicController do
   alias Discuss.Topic
     # like class inheritance. Imports a ton of stuff from Discuss.Web.ex/controller
 
+  def index(conn, _params) do
+    topics = Repo.all(Topic) #note here that were passing in a module - this will return all the data records of this module type
+    render conn, "index.html", topics: topics #this makes the @topics property availible to index.html.eex
+  end
+
   def new(conn, _params) do
     # IO.puts "++++"
     # IO.inspect conn #The focus of Phoenix. CONN IS AWESOME
@@ -14,11 +19,6 @@ defmodule Discuss.TopicController do
     params = %{}
     changeset = Topic.changeset(struct, params)
     render conn, "new.html", changeset: changeset
-  end
-
-  def index(conn, _params) do
-    topics = Repo.all(Topic) #note here that were passing in a module - this will return all the data records of this module type
-    render conn, "index.html", topics: topics #this makes the @topics property availible to index.html.eex
   end
 
   def create(conn, params) do
@@ -37,5 +37,9 @@ defmodule Discuss.TopicController do
         IO.inspect(changeset)
         render conn, "new.html", changeset: changeset
     end
+  end
+
+  def edit(conn, %{"id" => topic_id}) do
+    
   end
 end
