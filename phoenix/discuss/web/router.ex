@@ -34,6 +34,14 @@ defmodule Discuss.Router do
     # based upon the type of request and info that has been provided
   end
 
+  #scopes are ways to namespace your urls
+  scope "/auth", Discuss do
+    pipe_through :browser
+
+    get "/:provider", AuthController, :request
+    get "/:provider/callback", AuthController, :callback
+  end
+
   # Other scopes may use custom stacks.
   # scope "/api", Discuss do
   #   pipe_through :api
