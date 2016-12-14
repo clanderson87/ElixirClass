@@ -5,6 +5,8 @@ defmodule Discuss.User do
     field :email, :string
     field :provider, :string
     field :token, :string
+    has_many :topics, Discuss.Topic
+    #showing that each user can have many :topics, and those should all follow Discuss.Topic module
 
     timestamps()
   end

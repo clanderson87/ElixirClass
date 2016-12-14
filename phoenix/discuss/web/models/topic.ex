@@ -4,6 +4,8 @@ defmodule Discuss.Topic do
   schema "topics" do
     #field, :name_of_field_data, :datatype
     field :title, :string
+    belongs_to :user, Discuss.User
+    #each topic can only have one :user author, and that :user must follow the Discuss.User module
   end
 
   def changeset(struct, params \\ %{}) do
