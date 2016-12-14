@@ -30,6 +30,11 @@ defmodule Discuss.TopicController do
     %{"topic" => topic} = params # can also put this inplace of params in the method definition
     changeset = Topic.changeset(%Topic{}, topic)
 
+    changeset = conn.assigns.user # takes current user off connection object
+    |> build_assoc(:topics) # passed into build assoc, which creates a topic struct 
+    |> Topic.changeset(topic) # which is passed into Topic.changeset as first arg. 
+                              # the resulting topic that is created has an association to the current user
+
     case Repo.insert(changeset) do
       {:ok, _topic} -> 
         #IO.inspect(topic)
@@ -45,6 +50,7 @@ defmodule Discuss.TopicController do
   def edit(conn, %{"id" => topic_id}) do
     topic = Repo.get(Topic, topic_id) #Repo module will fo get a Topic out of our Topic Table that has the topic_id.
       #syntax is Repo.get(Module, prop_to_filter_by)
+      IO.inspect(topic)
     changeset = Topic.changeset(topic) #using Topic.ex/:changeset function here
 
     render conn, "edit.html", changeset: changeset, topic: topic
