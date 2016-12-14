@@ -28,6 +28,12 @@ defmodule Discuss.TopicController do
     render conn, "index.html", topics: topics #this makes the @topics property availible to index.html.eex
   end
 
+  def show(conn, %{"id" => topic_id}) do
+    topic = Repo.get!(Topic, topic_id)
+    # the get! will return an error if the topic_id isn't found
+    render conn, "show.html", topic: topic
+  end
+
   def new(conn, _params) do
     # IO.puts "++++"
     # IO.inspect conn #The focus of Phoenix. CONN IS AWESOME
