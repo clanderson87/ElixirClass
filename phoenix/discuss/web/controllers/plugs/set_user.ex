@@ -6,9 +6,12 @@ defmodule Discuss.Plugs.SetUser do
   alias Discuss.User
 
   def init(_params) do
+    #required to define this function by the Plugs contract. can be blank.
+    #called once per lifetime of app, on startup.
   end
 
   def call(conn, _params) do
+    # called everytime the plug is called.
     user_id = get_session(conn, :user_id)
     
     cond do

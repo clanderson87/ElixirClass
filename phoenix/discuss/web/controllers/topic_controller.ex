@@ -3,6 +3,9 @@ defmodule Discuss.TopicController do
   alias Discuss.Topic
     # like class inheritance. Imports a ton of stuff from Discuss.Web.ex/controller
 
+  plug Discuss.Plugs.RequireAuth when action in [:new, :create, :edit, :update, :delete]
+    #this plug only runs when the listed routes are called.
+
   def index(conn, _params) do
     topics = Repo.all(Topic) #note here that were passing in a module - this will return all the data records of this module type
     render conn, "index.html", topics: topics #this makes the @topics property availible to index.html.eex
