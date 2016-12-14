@@ -21,4 +21,4 @@ defmodule Discuss.Plugs.RequireAuth do
       |> halt() # force stops in the pipeline instead of passes this down elsewhere.
     end
   end
-end
+end 
