@@ -38,7 +38,7 @@ defmodule Discuss.Router do
   #scopes are ways to namespace your urls
   scope "/auth", Discuss do
     pipe_through :browser
-
+    get "/signout", AuthController, :signout # NB: Becuse of pattern matching, hardcoded routes should be above :wildcard routes
     get "/:provider", AuthController, :request
     get "/:provider/callback", AuthController, :callback
   end

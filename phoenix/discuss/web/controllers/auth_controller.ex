@@ -3,6 +3,12 @@ defmodule Discuss.AuthController do
   plug Ueberauth
   alias Discuss.User
   
+  def signout(conn, _params) do
+    conn
+    |> configure_session(drop: true)
+    |> redirect(to: topic_path(conn, :index))
+  end
+
   def callback(%{assigns: %{ueberauth_auth: auth}} = conn, params) do
     user_params = %{token: auth.credentials.token, email: auth.info.email, provider: "github"}
     # taken from the conn object - use IO.inspect(conn) to see this
@@ -38,4 +44,5 @@ defmodule Discuss.AuthController do
         {:ok, user}
     end
   end
+
 end
