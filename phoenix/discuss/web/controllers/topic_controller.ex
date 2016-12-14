@@ -5,6 +5,23 @@ defmodule Discuss.TopicController do
 
   plug Discuss.Plugs.RequireAuth when action in [:new, :create, :edit, :update, :delete]
     #this plug only runs when the listed routes are called.
+  plug :check_topic_owner when action in [:update, :edit, :delete]
+    #this declares a function plug, used only within this controller.
+    #this plug will fire :check_topic_owner when it detects the listed functions called,
+    #firing right before those functions.
+
+  def check_topic_owner(conn, _params) do
+    %{params: %{"id" => topic_id}} = conn
+
+    if Repo.get(Topic, topic_id).user_id == conn.assigns.user.id do
+      conn
+    else
+      conn
+      |> put_flash(:error, "you don't own this topic")
+      |> redirect(to: topic_path(conn, :index))
+      |> halt()
+    end
+  end
 
   def index(conn, _params) do
     topics = Repo.all(Topic) #note here that were passing in a module - this will return all the data records of this module type
